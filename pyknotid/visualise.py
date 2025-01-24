@@ -20,7 +20,10 @@ API documentation
 
 from __future__ import division
 
-import vispy
+try:
+    import vispy
+except ModuleNotFoundError:
+    vispy = None
 # vispy.use('PyQt5')
 
 import numpy as n
@@ -29,11 +32,11 @@ from colorsys import hsv_to_rgb
 from pyknotid.utils import ensure_shape_tuple, vprint
 import random
 from colorsys import hsv_to_rgb
-
-try:
-    from vispy.visuals.transforms import MatrixTransform
-except (AttributeError, ImportError):
-    from vispy.visuals.transforms import AffineTransform as MatrixTransform
+if vispy:
+    try:
+        from vispy.visuals.transforms import MatrixTransform
+    except (AttributeError, ImportError):
+        from vispy.visuals.transforms import AffineTransform as MatrixTransform
 
 vispy_canvas = None
 
